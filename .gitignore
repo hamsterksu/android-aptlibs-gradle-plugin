@@ -1,2 +1,3 @@
 /.gradle
 /aptlibs-gradle-plugin/build
+/android-aptlibs-gradle-plugin/build

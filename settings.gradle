@@ -1,1 +1,1 @@
-include 'aptlibs-gradle-plugin'
+include 'android-aptlibs-gradle-plugin'
