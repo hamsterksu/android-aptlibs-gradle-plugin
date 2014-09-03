@@ -71,3 +71,27 @@ Also you can add custom processor:
 			}
 		}
 	}
+
+### AndroidAnnotation - fix issue with new package name
+
+So if you want to have different applicationId for different productFlavors you need to tune AA processor. you need to add -AresourcePackageName argument
+
+
+	aptlibs {
+		custom{
+			customAndroidAnnotations {
+				processors = ["com.googlecode.androidannotations.AndroidAnnotationProcessor"]
+				groupId 'com.googlecode.androidannotations'
+				artifactIdApt 'androidannotations'
+				artifactIdLibrary 'androidannotations-api'
+				version "${aaVersion}"
+
+				customArgs { variant ->
+					arg "-AandroidManifestFile", "${variant.processResources.manifestFile}"
+					arg "-AresourcePackageName", <base(main flavour) package name here>
+				}
+			}
+		}
+	}
+
+
