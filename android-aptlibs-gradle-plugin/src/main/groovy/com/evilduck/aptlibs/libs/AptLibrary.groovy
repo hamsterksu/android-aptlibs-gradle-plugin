@@ -25,6 +25,7 @@ class AptLibrary {
     String name
     boolean enabled = true
     List<String> processors = new ArrayList<String>()
+    List<String> dependencies = [];
 
     String groupId
     String artifactIdApt
@@ -74,6 +75,10 @@ class AptLibrary {
 
     String compileDependency() {
         return "${groupId}:${artifactIdLibrary}:${version}"
+    }
+
+    List<String> getDependencies(){
+        return dependencies;
     }
 
     void appendAptArgs(Collection<String> args, variant) {

@@ -18,10 +18,12 @@
  */
 package com.evilduck.aptlibs
 
+import com.evilduck.aptlibs.libs.asql.AnnotatedSqlPlugin
+import com.evilduck.aptlibs.libs.asql.AnnotatedSqlPluginFactory
 import org.gradle.api.Action
 import com.evilduck.aptlibs.libs.AptLibrary
 import com.evilduck.aptlibs.libs.AndroidAnnotationsLibrary
-import com.evilduck.aptlibs.libs.AnnotatedSqlLibrary
+import com.evilduck.aptlibs.libs.asql.AnnotatedSqlLibrary
 import com.evilduck.aptlibs.libs.GroundyLibrary
 import com.evilduck.aptlibs.libs.AptLibraryFactory
 import org.gradle.api.NamedDomainObjectContainer
@@ -58,6 +60,10 @@ class AptlibsExtension  {
     void custom(Action<NamedDomainObjectContainer<AptLibrary>> action) {
         action.execute(custom)
     }
+
+    /*void plugins(Action<NamedDomainObjectContainer<AnnotatedSqlPlugin>> action) {
+        action.execute(plugins)
+    }*/
 
     public List<AptLibrary> getIncludedLibraries() {
         List<AptLibrary> libs = new ArrayList<AptLibrary>();

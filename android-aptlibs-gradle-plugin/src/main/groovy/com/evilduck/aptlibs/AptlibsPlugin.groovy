@@ -59,6 +59,11 @@ public class AptlibsPlugin implements Plugin<Project> {
             project.dependencies {
                 aptlibs lib.aptDependency()
                 aptcompile lib.compileDependency()
+                if (lib.dependencies) {
+                    lib.dependencies.each {
+                        aptlibs it
+                    }
+                }
             }
         }
     }

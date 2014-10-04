@@ -16,17 +16,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.evilduck.aptlibs.libs
+package com.evilduck.aptlibs.libs.asql
 
-class AnnotatedSqlLibrary extends AptLibrary  {
+import com.evilduck.aptlibs.libs.AptLibrary
 
-    public AnnotatedSqlLibrary() {
+class AnnotatedSqlLibrary extends AptLibrary {
+
+    List<AnnotatedSqlPlugin> registeredPlugins = []
+
+    String logLevel = 'WARN'
+
+    AnnotatedSqlLibrary() {
         name = "Annotated SQL"
         processors = ["com.annotatedsql.processor.provider.ProviderProcessor", "com.annotatedsql.processor.sql.SQLProcessor"];
 
         groupId = 'com.github.hamsterksu'
         artifactIdApt = 'android-annotatedsql-processor'
         artifactIdLibrary = 'android-annotatedsql-api'
+    }
+
+    void plugins(Closure plugins) {
+        plugins.resolveStrategy = Closure.DELEGATE_ONLY
+        plugins.delegate = this
+        plugins()
+    }
+
+    //handle defined plugins
+    def methodMissing(String name, args) {
+        AnnotatedSqlPlugin plugin = new AnnotatedSqlPlugin(name)
+        Closure pluginConfig = args[0]
+        pluginConfig.resolveStrategy = Closure.DELEGATE_ONLY
+        pluginConfig.delegate = plugin;
+        pluginConfig();
+
+        registeredPlugins.add(plugin);
     }
 
     void groupId(String groupId) {
@@ -45,4 +68,26 @@ class AnnotatedSqlLibrary extends AptLibrary  {
         throw new UnsupportedOperationException("custom args cannot be changed")
     }
 
+    @Override
+    List<String> getDependencies() {
+        def result = [];
+        result << super.getDependencies()
+        registeredPlugins.each {
+            it.dependencies.each { i -> result << i }
+        }
+        return result;
+    }
+
+    @Override
+    void appendAptArgs(Collection<String> args, variant) {
+        super.appendAptArgs(args, variant)
+        List<String> plugins = new ArrayList<>();
+        registeredPlugins.each {
+            plugins.add(it.plugin);
+        }
+        if (!plugins.isEmpty()) {
+            args.add("-Aplugins=" + plugins.join(' '));
+        }
+        args.add("-AlogLevel=" + logLevel);
+    }
 }
