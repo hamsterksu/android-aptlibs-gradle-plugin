@@ -22,9 +22,9 @@ class AndroidAnnotationsLibrary extends AptLibrary  {
 
     public AndroidAnnotationsLibrary() {
         name = "Android Annotations"
-        processors = ["com.googlecode.androidannotations.AndroidAnnotationProcessor"];
+        processors = ["org.androidannotations.AndroidAnnotationProcessor"];
 
-        groupId = 'com.googlecode.androidannotations'
+        groupId = 'org.androidannotations'
         artifactIdApt = 'androidannotations'
         artifactIdLibrary = 'androidannotations-api'
 
@@ -45,9 +45,9 @@ class AndroidAnnotationsLibrary extends AptLibrary  {
         throw new UnsupportedOperationException("artifactIdLibrary cannot be changed")
     }
 
-    public void customArgs(def args) {
+    /*public void customArgs(def args) {
         throw new UnsupportedOperationException("custom args cannot be changed")
-    }
+    }*/
 
 
 }
