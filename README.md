@@ -5,8 +5,8 @@ Very easy way to add annotation processors to your andorid project.
 
 aptlibs provide 3 predefined libs: android annotations, annotated sql, groundy.
 
-	ext.asVersion = '1.8.2'
-	ext.aaVersion = '2.7.1'
+	ext.asVersion = '1.10.0'
+	ext.aaVersion = '3.0.1'
 	ext.groundyVersion = '1.5'
 
 	aptlibs {
@@ -41,7 +41,7 @@ unfortunately you still need to add annotations(without processor) to project de
 			mavenCentral()
 		}
 		dependencies {
-			classpath 'com.github.hamsterksu:android-aptlibs-gradle-plugin:1.0.0'
+			classpath 'com.github.hamsterksu:android-aptlibs-gradle-plugin:1.2.0'
 		}
 	}
 
@@ -78,18 +78,13 @@ So if you want to have different applicationId for different productFlavors you 
 
 
 	aptlibs {
-		custom{
-			customAndroidAnnotations {
-				processors = ["com.googlecode.androidannotations.AndroidAnnotationProcessor"]
-				groupId 'com.googlecode.androidannotations'
-				artifactIdApt 'androidannotations'
-				artifactIdLibrary 'androidannotations-api'
-				version "${aaVersion}"
+		androidAnnotations{
+			version "${aaVersion}"
 
-				customArgs { variant ->
-					arg "-AandroidManifestFile", "${variant.processResources.manifestFile}"
-					arg "-AresourcePackageName", <base(main flavour) package name here>
-				}
+			customArgs { variant ->
+				arg "-AandroidManifestFile", "${variant.processResources.manifestFile}"
+				arg "-AresourcePackageName", <base(main flavour) package name here>
+				arg "-AlogAppenderConsole", "true"
 			}
 		}
 	}
