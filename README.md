@@ -29,7 +29,7 @@ unfortunately you still need to add annotations(without processor) to project de
 	dependencies {
 		compile "com.github.hamsterksu:android-annotatedsql-api:${asVersion}"
 		compile "com.telly:groundy:${groundyVersion}"
-		compile "com.googlecode.androidannotations:androidannotations-api:${aaVersion}"
+		compile "org.androidannotations:androidannotations-api:${aaVersion}"
 	}
 
 ##additional gradle config:##
