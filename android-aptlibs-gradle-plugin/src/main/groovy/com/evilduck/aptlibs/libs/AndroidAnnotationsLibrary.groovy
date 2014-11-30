@@ -29,7 +29,7 @@ class AndroidAnnotationsLibrary extends AptLibrary  {
         artifactIdLibrary = 'androidannotations-api'
 
         args = { variant ->
-            arg "-AandroidManifestFile", "${variant.processResources.manifestFile}"
+            arg "-AandroidManifestFile", "${variant.outputs[0].processResources.manifestFile}"
         }
     }
 
