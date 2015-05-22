@@ -32,9 +32,9 @@ public class AptlibsPlugin implements Plugin<Project> {
     public void apply(Project project) {
         this.project = project
         def variants = null;
-        if (project.plugins.findPlugin("com.android.application")) {
+        if (project.plugins.findPlugin("com.android.application") || project.plugins.findPlugin("android")) {
             variants = "applicationVariants";
-        } else if (project.plugins.findPlugin("com.android.library")) {
+        } else if (project.plugins.findPlugin("com.android.library") || project.plugins.findPlugin("android-library")) {
             variants = "libraryVariants";
         } else {
             throw new ProjectConfigurationException("The com.android.application or com.android.library plugin must be applied to the project", null)
